@@ -1,6 +1,7 @@
 import pygame
 
-class Snake():
+
+class Snake:
 
     body_lenh = 3
     body_width = 10
@@ -9,7 +10,7 @@ class Snake():
     y = 30
     speed = 20
     body = [[60, 30], [45, 30], [30, 30], ]
-    snake_head = body[1]
+    snake_head = body[0]
 
     def __init__(self, WIDTH, HEIGHT):
         self.WIDTH = WIDTH
@@ -27,25 +28,24 @@ class Snake():
 
         if self.x < 0:
             self.x = self.WIDTH
-        elif self.x > self.WIDTH:
+        elif self.x > self.WIDTH - self.body_width:
             self.x = 0
 
         if self.y < 0:
             self.y = self.HEIGHT
-        elif self.y > self.HEIGHT:
+        elif self.y > self.HEIGHT - self.body_height:
             self.y = 0
 
         self.BodyUpdate()
         self.PrintBody(Win)
 
     def PrintBody(self, Win):
-        c = 0
         for i in range(len(self.body)):
-            if c % 2 != 0:
+            if len(self.body) % 2 != 0:
                 pygame.draw.rect(Win, (255, 0, 0), (self.body[i - 1][0], self.body[i - 1][1], self.body_width, self.body_height))
             else:
-                pygame.draw.rect(Win, (255, 255, 255),(self.body[i - 1][0], self.body[i - 1][1], self.body_width, self.body_height))
-            c = c + 1
+                pygame.draw.rect(Win, (255, 255, 255), (self.body[i - 1][0], self.body[i - 1][1], self.body_width, self.body_height))
+
 
     def BodyUpdate(self,):
         for i in range(len(self.body) - 1, 0, -1):
@@ -66,5 +66,14 @@ class Snake():
             tail.append(self.body[-1][0])
             tail.append(self.body[-1][1])
             self.body.append(tail)
+
+    def SHead(self):
+        s = []
+        s.append([self.snake_head[0], self.snake_head[1]])
+        s.append([self.snake_head[0], self.snake_head[1] + 10])
+        s.append([self.snake_head[0] + 10, self.snake_head[1]])
+        s.append([self.snake_head[0] + 10, self.snake_head[1] + 10])
+        return s
+
 
 

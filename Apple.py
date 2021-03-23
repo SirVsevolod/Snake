@@ -1,7 +1,8 @@
 import pygame
 import random
 
-class Apple():
+
+class Apple:
     
     x = 300
     y = 200
@@ -14,8 +15,8 @@ class Apple():
         self.HEIGHT = HEIGHT
 
     def MakeApple(self, Win, body,):
-        self.x = random.choice(range(self.WIDTH))
-        self.y = random.choice(range(self.HEIGHT))
+        self.x = random.choice(range(self.WIDTH - self.apple_width))
+        self.y = random.choice(range(self.HEIGHT - self.apple_height))
         pygame.draw.rect(Win, (0, 0, 255), (self.x, self.y, self.apple_width, self.apple_height))
         apple = [self.x, self.y]
         if self.SApple in body:
@@ -34,6 +35,7 @@ class Apple():
         return s
 
     def ChekEat(self, snake_head, Win, body):
-        if snake_head in self.SApple():
-            self.MakeApple(Win, body)
-            return True
+        for s in snake_head:
+            if s in self.SApple():
+                self.MakeApple(Win, body)
+                return True
